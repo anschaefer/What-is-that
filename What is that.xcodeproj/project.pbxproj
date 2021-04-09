@@ -13,6 +13,7 @@
 		6548A1F9262056FC00028C2D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6548A1F7262056FC00028C2D /* Main.storyboard */; };
 		6548A1FB262056FF00028C2D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6548A1FA262056FF00028C2D /* Assets.xcassets */; };
 		6548A1FE262056FF00028C2D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6548A1FC262056FF00028C2D /* LaunchScreen.storyboard */; };
+		6548A2072620571900028C2D /* SqueezeNet.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 6548A2062620571900028C2D /* SqueezeNet.mlmodel */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		6548A1FA262056FF00028C2D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6548A1FD262056FF00028C2D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6548A1FF262056FF00028C2D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6548A2062620571900028C2D /* SqueezeNet.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = SqueezeNet.mlmodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,11 +62,20 @@
 				6548A1F3262056FC00028C2D /* SceneDelegate.swift */,
 				6548A1F5262056FC00028C2D /* ViewController.swift */,
 				6548A1F7262056FC00028C2D /* Main.storyboard */,
-				6548A1FA262056FF00028C2D /* Assets.xcassets */,
-				6548A1FC262056FF00028C2D /* LaunchScreen.storyboard */,
 				6548A1FF262056FF00028C2D /* Info.plist */,
+				6548A2092620574C00028C2D /* Resources */,
 			);
 			path = "What is that";
+			sourceTree = "<group>";
+		};
+		6548A2092620574C00028C2D /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				6548A1FA262056FF00028C2D /* Assets.xcassets */,
+				6548A1FC262056FF00028C2D /* LaunchScreen.storyboard */,
+				6548A2062620571900028C2D /* SqueezeNet.mlmodel */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -140,6 +151,7 @@
 				6548A1F6262056FC00028C2D /* ViewController.swift in Sources */,
 				6548A1F2262056FC00028C2D /* AppDelegate.swift in Sources */,
 				6548A1F4262056FC00028C2D /* SceneDelegate.swift in Sources */,
+				6548A2072620571900028C2D /* SqueezeNet.mlmodel in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -286,6 +298,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = MSXEJT2759;
 				INFOPLIST_FILE = "What is that/Info.plist";
@@ -295,6 +308,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.anschaefer.What-is-that";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -305,6 +319,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = MSXEJT2759;
 				INFOPLIST_FILE = "What is that/Info.plist";
@@ -314,6 +329,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.anschaefer.What-is-that";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
