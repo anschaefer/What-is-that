@@ -8,13 +8,14 @@
 import UIKit
 import CoreML
 import Vision
-import Social
 
-class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class StartViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    @IBOutlet weak var imageView: UIImageView!
-    var classificationResults: [VNClassificationObservation] = []
-    let imagePicker = UIImagePickerController()
+    private let imagePicker = UIImagePickerController()
+    private var resultView = ResultViewController();
+    private var classificationResults: [VNClassificationObservation] = []
+    private var resultImage: UIImage?
+    private var resultText: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,7 +23,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         imagePicker.delegate = self
     }
     
-    func detectObject(image : CIImage) {
+    private func detectObject(image : CIImage) {
         
         let configuration = MLModelConfiguration()
         
@@ -36,7 +37,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                 fatalError("Unexpected result type")
             }
             
-            self.navigationItem.title = topResult.identifier
+            self.resultText = topResult.identifier
         }
         
         let handler = VNImageRequestHandler(ciImage: image)
@@ -48,32 +49,46 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         }
     }
     
+    // MARK: - Image Picker functions
+    
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
         if let image = info[.originalImage] as? UIImage {
-            imageView.image = image
-            imagePicker.dismiss(animated: true, completion: nil)
+            resultImage = image
             
             guard let ciImage = CIImage(image: image) else {
                 fatalError("couldn't convert uiimage to CIImage")
             }
             detectObject(image: ciImage)
+            
+            imagePicker.dismiss(animated: true) {
+                self.performSegue(withIdentifier: "goToResult", sender: self)
+            }
         }
     }
     
-    @IBAction func cameraTapped(_ sender: UIBarButtonItem) {
-        
+    // MARK: - Actions
+    @IBAction func cameraTapped(_ sender: UIButton) {
         imagePicker.sourceType = .camera
         imagePicker.allowsEditing = false
         
         present(imagePicker, animated: true, completion: nil)
     }
     
-    @IBAction func selectImageTapped(_ sender: UIBarButtonItem) {
+    @IBAction func selectImageTapped(_ sender: UIButton) {
         
         imagePicker.sourceType = .photoLibrary
         imagePicker.allowsEditing = false
         
         present(imagePicker, animated: true, completion: nil)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "goToResult" {
+            if let destinationVc = segue.destination as? ResultViewController {
+                destinationVc.resultTitle = resultText
+                destinationVc.resultImage = resultImage
+            }
+        }
     }
 }
