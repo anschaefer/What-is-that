@@ -11,16 +11,31 @@ import Vision
 
 class StartViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
+    // MARK: -- Outles
+    @IBOutlet weak var cameraButton: UIButton!
+    @IBOutlet weak var selectPictureButton: UIButton!
+    
+    
+    // MARK: -- Properties
     private let imagePicker = UIImagePickerController()
     private var resultView = ResultViewController();
     private var classificationResults: [VNClassificationObservation] = []
     private var resultImage: UIImage?
-    private var resultText: String?
+    private var resultTitle: String?
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         imagePicker.delegate = self
+        
+        let buttonConfig = UIImage.SymbolConfiguration(pointSize: 140, weight: .bold, scale: .medium)
+        
+        let cameraSymbol = UIImage(systemName: "camera", withConfiguration: buttonConfig)
+        let pictureSymbol = UIImage(systemName: "photo", withConfiguration: buttonConfig)
+        
+        cameraButton.setImage(cameraSymbol, for: .normal)
+        selectPictureButton.setImage(pictureSymbol, for: .normal)
     }
     
     private func detectObject(image : CIImage) {
@@ -37,7 +52,8 @@ class StartViewController: UIViewController, UIImagePickerControllerDelegate, UI
                 fatalError("Unexpected result type")
             }
             
-            self.resultText = topResult.identifier
+            self.resultTitle = topResult.identifier
+            self.classificationResults = results
         }
         
         let handler = VNImageRequestHandler(ciImage: image)
@@ -86,8 +102,9 @@ class StartViewController: UIViewController, UIImagePickerControllerDelegate, UI
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "goToResult" {
             if let destinationVc = segue.destination as? ResultViewController {
-                destinationVc.resultTitle = resultText
+                destinationVc.resultTitle = resultTitle
                 destinationVc.resultImage = resultImage
+                destinationVc.classificationResults = classificationResults
             }
         }
     }
