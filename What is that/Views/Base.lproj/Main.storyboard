@@ -73,7 +73,7 @@
             </objects>
             <point key="canvasLocation" x="85.507246376811594" y="81.696428571428569"/>
         </scene>
-        <!--Result View Controller-->
+        <!--Classification-->
         <scene sceneID="dJb-gH-ifq">
             <objects>
                 <viewController id="a9q-aW-L7I" customClass="ResultViewController" customModule="What_is_that" customModuleProvider="target" sceneMemberID="viewController">
@@ -116,7 +116,7 @@
                         <viewLayoutGuide key="safeArea" id="n4P-tm-exb"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <navigationItem key="navigationItem" id="A7r-Pi-TCr"/>
+                    <navigationItem key="navigationItem" title="Classification" id="A7r-Pi-TCr"/>
                     <connections>
                         <outlet property="imageView" destination="nfs-pL-mfI" id="C7P-pr-1vh"/>
                     </connections>

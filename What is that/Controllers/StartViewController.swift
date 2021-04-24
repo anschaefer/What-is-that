@@ -102,7 +102,6 @@ class StartViewController: UIViewController, UIImagePickerControllerDelegate, UI
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "goToResult" {
             if let destinationVc = segue.destination as? ResultViewController {
-                destinationVc.resultTitle = resultTitle
                 destinationVc.resultImage = resultImage
                 destinationVc.classificationResults = classificationResults
             }

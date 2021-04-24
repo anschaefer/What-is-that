@@ -16,16 +16,11 @@ class ResultViewController: UIViewController, UINavigationControllerDelegate, UI
    
     // MARK: --Properties
     var resultImage: UIImage?
-    var resultTitle: String?
     var classificationResults: [VNClassificationObservation]?
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        if let title = resultTitle {
-            navigationItem.title =  title
-        }
         
         if let image = resultImage {
             imageView.image = image
@@ -33,6 +28,10 @@ class ResultViewController: UIViewController, UINavigationControllerDelegate, UI
     }
     
     // MARK: -- Table View Data Source Methods
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return "Results"
+    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return classificationResults?.count ?? 1
@@ -42,8 +41,9 @@ class ResultViewController: UIViewController, UINavigationControllerDelegate, UI
         let cell = tableView.dequeueReusableCell(withIdentifier: "MyCell", for: indexPath)
         
         let result = classificationResults![indexPath.row]
+        let confidenceStr = String(format: "%.2f", result.confidence * 100)
         
-        cell.textLabel?.text = result.identifier
+        cell.textLabel?.text = "\(result.identifier) (\(confidenceStr) %)"
         
         return cell
     }
