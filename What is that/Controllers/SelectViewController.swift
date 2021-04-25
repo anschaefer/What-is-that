@@ -21,21 +21,14 @@ class SelectViewController: UIViewController, UIImagePickerControllerDelegate, U
         super.viewDidLoad()
         
         imagePicker.delegate = self
-        
-        let buttonConfig = UIImage.SymbolConfiguration(pointSize: 140, weight: .bold, scale: .small)
-        
-        let cameraSymbol = UIImage(systemName: "camera", withConfiguration: buttonConfig)
-        let pictureSymbol = UIImage(systemName: "photo", withConfiguration: buttonConfig)
-        
-        cameraButton.setImage(cameraSymbol, for: .normal)
-        selectPictureButton.setImage(pictureSymbol, for: .normal)
+        imagePicker.allowsEditing = true
     }
     
     // MARK: - Image Picker functions
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
-        if let image = info[.originalImage] as? UIImage {
+        if let image = info[.editedImage] as? UIImage {
             selectedImage = image
             
             guard let ciImage = CIImage(image: image) else {
@@ -52,16 +45,11 @@ class SelectViewController: UIViewController, UIImagePickerControllerDelegate, U
     // MARK: - Actions
     @IBAction func cameraTapped(_ sender: UIButton) {
         imagePicker.sourceType = .camera
-        imagePicker.allowsEditing = false
-        
         present(imagePicker, animated: true, completion: nil)
     }
     
     @IBAction func selectImageTapped(_ sender: UIButton) {
-        
         imagePicker.sourceType = .photoLibrary
-        imagePicker.allowsEditing = false
-        
         present(imagePicker, animated: true, completion: nil)
     }
     

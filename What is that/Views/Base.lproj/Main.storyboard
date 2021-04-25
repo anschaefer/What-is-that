@@ -19,16 +19,20 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="sZ4-e1-W3v">
                                 <rect key="frame" x="0.0" y="88" width="414" height="774"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d1m-Xk-CTD">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d1m-Xk-CTD">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="386.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="26"/>
+                                        <state key="normal" image="camera" catalog="system">
+                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="60" scale="medium" weight="semibold"/>
+                                        </state>
                                         <connections>
                                             <action selector="cameraTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="rtL-ra-xKe"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zzR-BP-YDK">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zzR-BP-YDK">
                                         <rect key="frame" x="0.0" y="387.5" width="414" height="386.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="26"/>
+                                        <state key="normal" image="photo" catalog="system">
+                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="60" scale="medium" weight="semibold"/>
+                                        </state>
                                         <connections>
                                             <action selector="selectImageTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="43z-9u-6PI"/>
                                         </connections>
@@ -129,6 +133,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="camera" catalog="system" width="128" height="94"/>
+        <image name="photo" catalog="system" width="128" height="93"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
