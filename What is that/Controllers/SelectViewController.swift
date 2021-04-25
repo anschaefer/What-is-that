@@ -6,30 +6,23 @@
 //
 
 import UIKit
-import CoreML
-import Vision
 
-class StartViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class SelectViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    // MARK: -- Outles
     @IBOutlet weak var cameraButton: UIButton!
     @IBOutlet weak var selectPictureButton: UIButton!
     
-    
-    // MARK: -- Properties
+    private var classification = ImageClassification()
+    private var resultVire = ResultViewController()
     private let imagePicker = UIImagePickerController()
-    private var resultView = ResultViewController();
-    private var classificationResults: [VNClassificationObservation] = []
-    private var resultImage: UIImage?
-    private var resultTitle: String?
-    
+    private var selectedImage: UIImage?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         imagePicker.delegate = self
         
-        let buttonConfig = UIImage.SymbolConfiguration(pointSize: 140, weight: .bold, scale: .medium)
+        let buttonConfig = UIImage.SymbolConfiguration(pointSize: 140, weight: .bold, scale: .small)
         
         let cameraSymbol = UIImage(systemName: "camera", withConfiguration: buttonConfig)
         let pictureSymbol = UIImage(systemName: "photo", withConfiguration: buttonConfig)
@@ -38,44 +31,17 @@ class StartViewController: UIViewController, UIImagePickerControllerDelegate, UI
         selectPictureButton.setImage(pictureSymbol, for: .normal)
     }
     
-    private func detectObject(image : CIImage) {
-        
-        let configuration = MLModelConfiguration()
-        
-        guard let model = try? VNCoreMLModel(for: SqueezeNet(configuration: configuration).model) else {
-            fatalError("Could not load ML model")
-        }
-        
-        let request = VNCoreMLRequest(model: model) { (request, error) in
-            
-            guard let results = request.results as? [VNClassificationObservation], let topResult = results.first else {
-                fatalError("Unexpected result type")
-            }
-            
-            self.resultTitle = topResult.identifier
-            self.classificationResults = results
-        }
-        
-        let handler = VNImageRequestHandler(ciImage: image)
-        
-        do {
-            try  handler.perform([request])
-        } catch  {
-            print(error)
-        }
-    }
-    
     // MARK: - Image Picker functions
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
         if let image = info[.originalImage] as? UIImage {
-            resultImage = image
+            selectedImage = image
             
             guard let ciImage = CIImage(image: image) else {
                 fatalError("couldn't convert uiimage to CIImage")
             }
-            detectObject(image: ciImage)
+            classification.detectObject(image: ciImage)
             
             imagePicker.dismiss(animated: true) {
                 self.performSegue(withIdentifier: "goToResult", sender: self)
@@ -102,8 +68,8 @@ class StartViewController: UIViewController, UIImagePickerControllerDelegate, UI
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "goToResult" {
             if let destinationVc = segue.destination as? ResultViewController {
-                destinationVc.resultImage = resultImage
-                destinationVc.classificationResults = classificationResults
+                destinationVc.resultImage = selectedImage
+                destinationVc.classificationResults = classification.getResults()
             }
         }
     }

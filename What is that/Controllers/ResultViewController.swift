@@ -8,7 +8,6 @@
 import UIKit
 import Vision
 
-
 class ResultViewController: UIViewController, UINavigationControllerDelegate, UITableViewDataSource {
 
     // MARK: -- Outlets
@@ -17,7 +16,6 @@ class ResultViewController: UIViewController, UINavigationControllerDelegate, UI
     // MARK: --Properties
     var resultImage: UIImage?
     var classificationResults: [VNClassificationObservation]?
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
